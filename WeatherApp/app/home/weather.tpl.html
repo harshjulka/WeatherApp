@@ -1,0 +1,30 @@
+<h2>Weather Report</h2>
+<form>
+<div class="form-group" style="text-align:center">
+	<input type="text" name="city" ng-model="home.cityName" placeholder="City name">
+	<button class="btn btn-primary" type="submit" ng-click="home.weatherForecast()">Weather</button>
+<label>Format</label>
+<input type="radio"  value="C" name="format" ng-model="home.format"><span>Celcius</span>
+<input type="radio" value="F"  name="format" ng-model="home.format"><span>Fahrenheit</span>
+</div>
+</form>
+<table class="table" ng-show="home.clicked" ng-cloak>
+	<thead>
+		<tr>
+			<th>Day</th>
+			<th>Time</th>
+			<th>Temp.</th>
+			<th>Weather</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="temp in home.data">
+			<td>{{temp.dt_txt | customDate}}</td>
+			<td>{{home.getTime(temp.dt_txt)}}</td>
+			<td>{{temp.main.temp | tempFilter: home.format}}</td>
+			<td><weather-icon weather="{{ temp.weather[0].icon }}"></weather-icon></td>
+			<td class="capitalize2">{{temp.weather[0].description }}</td>
+		</tr>
+	</tbody>
+</table>
